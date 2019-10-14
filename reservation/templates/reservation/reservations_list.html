@@ -1,0 +1,25 @@
+{% extends 'reservation/reservations_search.html' %}
+
+{% block content %}
+
+<h2>Reservations for parking space number {{ space_number }} </h2>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Phone number</th>
+        <th>Reservation starts</th>
+        <th>Reservations finishes</th>
+    </tr>
+    {% for reservation in reservations %}
+    <tr>
+        <th>{{ reservation.name }}</th>
+        <th>{{ reservation.surname }} </th>
+        <th>{{ reservation.phone_number }}</th>
+        <th>{{ reservation.start_date }}</th>
+        <th>{{ reservation.finish_date }}</th>
+    </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
