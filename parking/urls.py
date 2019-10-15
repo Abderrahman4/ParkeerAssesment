@@ -17,15 +17,19 @@ from django.contrib import admin
 from django.urls import path
 from django.conf.urls import url
 
-from django.contrib.auth import views as auth_views
+from reservation import views as core_views
 
+from django.contrib.auth import views as auth_views
+from django.views.generic.base import TemplateView
 from reservation.views import ReservationView, ReservationsListView
 
 # kjsfkdjs
 
 urlpatterns = [
-    url(r'^login/$', auth_views.login, name='login'),
-    url(r'^logout/$', auth_views.logout, name='logout'),
+    url(r'^$', TemplateView.as_view(template_name='registration/home.html'), name='home'),
+    url(r'^signup/$', core_views.signup, name='signup'),
+    url( r'^login/$',auth_views.LoginView.as_view(template_name="registration/login.html"), name="login"),
+    url( r'^logout/$',auth_views.LogoutView.as_view(template_name="registration/logged_out.html"), name="logout"),
     url(r'^admin/', admin.site.urls),
     url(r'^reservation/', ReservationsListView.as_view(), name='reservations_list'),
     url(r'', ReservationView.as_view(), name='index'),
