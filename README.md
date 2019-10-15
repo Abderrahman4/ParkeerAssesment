@@ -3,18 +3,15 @@ Django 2.0
 Python 3.5.2
 SQLite
 
-Deze parkeer app vereist een simpele virtuele environment: python -m venv <name_of_virtualenv>
-Start eerst de virtual environtment onder de map scripts en dan activate. 
-En uiteraard is Django vereist: pip install django
+1) Start eerst door deze project te clonen: git clone https://github.com/Abderrahman4/ParkeerAssesment.git
+of de zip te downloaden. 
 
+2) Deze parkeer app vereist een simpele virtuele environment: python -m venv <name_of_virtualenv>
+Start eerst de virtual environtment, In de gemaakte environmentfolder onder de map scripts en dan activate. 
 
-start eerst de virtual environtment onder de map scripts en dan activate. 
+3) En uiteraard is Django vereist: pip install django
 
-stap 1: 
-voor een migration uit: python manage.py migrate
+4) maak een superuser: python manage.py createsuperuser
+volg de instructies op t scherm in de terminal. 
 
-stap 2: 
-maak een superuser: python manage.py createsuperuser
-
-stap 3 :
-run de server: python manage.py runserver
+4) voer start.bat uit
