@@ -1,13 +1,12 @@
-from django.shortcuts import render
-from django.views import View
-from reservation.models import Reservation
-from django.db.models import Q
-
-from .forms import ReservationForm, ParkingSpaceForm
-
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
+from django.db.models import Q
+from django.shortcuts import redirect, render
+from django.views import View
+from reservation.forms import SignUpForm
+from reservation.models import Reservation
+
+from .forms import ParkingSpaceForm, ReservationForm
 
 
 class ReservationView(View):
@@ -61,7 +60,7 @@ class ReservationsListView(View):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             form.save()
             username = form.cleaned_data.get('username')
@@ -70,5 +69,5 @@ def signup(request):
             login(request, user)
             return redirect('home')
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})

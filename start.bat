@@ -8,8 +8,8 @@ python manage.py makemigrations
 echo "Apply database migrations"
 python manage.py migrate
 
-echo "If not available, set admin account"
-python initadmin.py
+REM echo "If not available, set admin account"
+REM python initadmin.py
 
 echo "Starting server"
 python manage.py runserver 0.0.0.0:8000

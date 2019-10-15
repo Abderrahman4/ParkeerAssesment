@@ -1,5 +1,10 @@
 import datetime
-from django.forms import ModelForm, DateInput, TextInput, ValidationError
+
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.forms import DateInput, ModelForm, TextInput, ValidationError
+
 from .models import Reservation
 
 
@@ -40,3 +45,11 @@ class ParkingSpaceForm(ModelForm):
             'parking_space_number': TextInput(attrs={'pattern': '[1-9]+', 'title': 'Enter a valid parking space number'})
         }
 
+class SignUpForm(UserCreationForm):
+    first_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    last_name = forms.CharField(max_length=30, required=False, help_text='Optional.')
+    email = forms.EmailField(max_length=254, help_text='Required. Inform a valid email address.')
+
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name', 'email', 'password1', 'password2', )
