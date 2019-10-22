@@ -11,11 +11,14 @@ from .forms import ParkingSpaceForm, ReservationForm
 
 class ReservationView(View):
     def get(self, request):
-        reservation = ReservationForm()
+        print(request.user.first_name)
+        reservation = ReservationForm(initial={'name':request.user.first_name,
+                            'surname': request.user.last_name})
 
         return render(request, 'reservation/index.html', {'form': reservation})
 
     def post(self, request):
+       
         reservation_form = ReservationForm(data=request.POST)
 
         if reservation_form.is_valid():
@@ -58,38 +61,16 @@ class ReservationsListView(View):
 
         return render(request, 'reservation/reservations_search.html', {'form': parking_space_number_form})
 
-
-#zonder profiel 
-
-# def signup(request):
-#     if request.method == 'POST':
-#         form = SignUpForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get('username')
-#             raw_password = form.cleaned_data.get('password1')
-#             user = authenticate(username=username, password=raw_password)
-#             login(request, user)
-#             return redirect('home')
-#     else:
-#         form = SignUpForm()
-#     return render(request, 'registration/signup.html', {'form': form})
-
-
-# met profiel
-
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            user.refresh_from_db()  # load the profile instance created by the signal
-            user.profile.birth_date = form.cleaned_data.get('birth_date')
-            user.save()
+            form.save()
+            username = form.cleaned_data.get('username')
             raw_password = form.cleaned_data.get('password1')
-            user = authenticate(username=user.username, password=raw_password)
+            user = authenticate(username=username, password=raw_password)
             login(request, user)
-            return redirect('home')
+            return redirect('/reservation/')
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
